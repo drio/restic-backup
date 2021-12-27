@@ -9,37 +9,49 @@ INCLUDE=/Users/drio
 
 all: init backup
 
-init: init-rufus init-rufus-wd
+check: check-rufus check-rufus-wd
+
+snapshots: snapshots-rufus snapshots-rufus-wd
 
 backup: backup-rufus backup-rufus-wd
 
+check-rufus:
+	@restic --verbose -r sftp:drio@rufus:$(REPO_DIR_RUFUS) check $(PASS_FILE) 
+
+check-rufus-wd:
+	@restic --verbose -r sftp:drio@rufus:$(REPO_DIR_WD) check $(PASS_FILE) 
+
+restore-rufus: snapshots-rufus
+	@echo "mkdir /tmp/restore-work; \
+	restic -r sftp:drio@rufus:$(REPO_DIR_RUFUS) \
+	restore ####### \
+ 	$(PASS_FILE)  \
+	--target /tmp/restore-work \
+	--include /Users/drio/dev/restic-backup"
+
+snapshots-rufus:
+	@restic --verbose -r sftp:drio@rufus:$(REPO_DIR_RUFUS) snapshots $(PASS_FILE) 
+
+snapshots-rufus-wd:
+	@restic --verbose -r sftp:drio@rufus:$(REPO_DIR_WD) snapshots $(PASS_FILE) 
+
 backup-rufus:
-	@restic \
-  --verbose \
-	-r sftp:drio@rufus:$(REPO_DIR_RUFUS) \
-	backup \
-	$(INCLUDE) \
-	$(PASS_FILE) \
-	$(EXCLUDE)
+	@restic -r sftp:drio@rufus:$(REPO_DIR_RUFUS)  backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 backup-rufus-wd:
-	@restic \
-	--verbose	\
-	-r sftp:drio@rufus:$(REPO_DIR_WD) \
-	backup \
-	$(INCLUDE) \	
-	$(PASS_FILE) \
-	$(EXCLUDE)
+	@restic -r sftp:drio@rufus:$(REPO_DIR_WD) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
+
+init: init-rufus init-rufus-wd
 
 init-rufus:
-	@restic -r sftp:drio@rufus:$(REPO_DIR_RUFUS) snapshots $(PASS_FILE); \
+	@restic -r sftp:drio@rufus:$(REPO_DIR_RUFUS) snapshots $(PASS_FILE) 2>/dev/null; \
 	exists=$$?; \
 	[ $$exists -ne 0 ] && \
 		restic -r sftp:drio@rufus:$(REPO_DIR_RUFUS) init $(PASS_FILE) || \
 		echo "repo ($(REPO_DIR_RUFUS)) already exists no need to run"
 
 init-rufus-wd:
-	@restic -r sftp:drio@rufus:$(REPO_DIR_WD) snapshots $(PASS_FILE); \
+	@restic -r sftp:drio@rufus:$(REPO_DIR_WD) snapshots $(PASS_FILE) 2>/dev/null; \
 	exists=$$?; \
 	[ $$exists -ne 0 ] && \
 		restic -r sftp:drio@rufus:$(REPO_DIR_WD) init $(PASS_FILE) || \

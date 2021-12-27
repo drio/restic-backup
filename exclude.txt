@@ -1,4 +1,7 @@
+/Users/drio/restic-repo
+*node_modules*
 /Users/drio/Applications 
+/Users/drio/Library
 /Users/drio/Documents    
 /Users/drio/Movies 
 /Users/drio/ledfx-venv   
@@ -17,4 +20,3 @@
 /Users/drio/.platformio
 /Users/drio/.vscode
 /Users/drio/.vscode-oss
-
