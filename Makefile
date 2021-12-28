@@ -17,10 +17,10 @@ snapshots: snapshots-rufus snapshots-rufus-wd
 backup: backup-rufus backup-rufus-wd
 
 check-rufus:
-	@restic --verbose -r $(HOST):$(REPO_DIR_RUFUS) check $(PASS_FILE) 
+	@restic --verbose -r $(HOST):$(REPO_DIR_RUFUS) check $(PASS_FILE)
 
 check-rufus-wd:
-	@restic --verbose -r $(HOST):$(REPO_DIR_WD) check $(PASS_FILE) 
+	@restic --verbose -r $(HOST):$(REPO_DIR_WD) check $(PASS_FILE)
 
 restore-rufus: snapshots-rufus
 	@echo "mkdir /tmp/restore-work; \
@@ -31,10 +31,10 @@ restore-rufus: snapshots-rufus
 	--include /Users/drio/dev/restic-backup"
 
 snapshots-rufus:
-	@restic --verbose -r $(HOST):$(REPO_DIR_RUFUS) snapshots $(PASS_FILE) 
+	@restic --verbose -r $(HOST):$(REPO_DIR_RUFUS) snapshots $(PASS_FILE)
 
 snapshots-rufus-wd:
-	@restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots $(PASS_FILE) 
+	@restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots $(PASS_FILE)
 
 backup-rufus:
 	@restic -r $(HOST):$(REPO_DIR_RUFUS)  backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
