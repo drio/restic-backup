@@ -8,7 +8,10 @@ HOST?=sftp:drio@rufus
 # restic forget -r <repo_name> --keep-weekly 10
 # restic check -r <repo_name>
 
-all: init backup
+all: init backup notification
+
+notification:
+	osascript -e 'display notification "Backup done" with title "Backup" sound name "Purr.aiff"'
 
 check: check-rufus check-rufus-wd
 

@@ -1,4 +1,5 @@
 /Users/drio/restic-repo
+/Users/drio/dev/postgreSQL/var
 *node_modules*
 /Users/drio/Applications 
 /Users/drio/Library
