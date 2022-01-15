@@ -21,3 +21,4 @@
 /Users/drio/.platformio
 /Users/drio/.vscode
 /Users/drio/.vscode-oss
+/Users/drio/dev/iot/reolink/reolink-fetch/output
