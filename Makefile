@@ -67,7 +67,7 @@ backup-rufus-wd:
 	@restic -r $(HOST):$(REPO_DIR_WD) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 backup-b2:
-	@restic -r $(B2_URL) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
+	$(B2_VARS) @restic -r $(B2_URL) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 init: init-rufus init-rufus-wd
 
