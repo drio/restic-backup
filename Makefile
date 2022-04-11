@@ -2,8 +2,8 @@ PASS_FILE="--password-file=./pass.txt"
 REPO_DIR_RUFUS="/Users/drio/restic-repo"
 REPO_DIR_WD="/Users/drio/wd_elements/restic-repo"
 EXCLUDE=--exclude-file=exclude.txt
-INCLUDE=/Users/drio
-HOST?=sftp:drio@rufus
+INCLUDE=--files-from=include.txt
+HOST?=sftp:drio@rufusts
 B2_BUCKET=drio-restic-backup
 B2_ID=003106374dd93dd0000000001
 B2_KEY=$(shell cat ./b2-key.txt)
@@ -12,9 +12,7 @@ B2_URL=b2:$(B2_BUCKET):b2_drio_repo
 # restic forget -r <repo_name> --keep-weekly 10
 # restic check -r <repo_name>
 
-all: init backup notification
-
-notification:
+notification: backup
 	osascript -e 'display notification "Backup done" with title "Backup" sound name "Purr.aiff"'
 
 check: check-rufus check-rufus-wd
@@ -61,13 +59,13 @@ snapshots-rufus-wd:
 	@restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots $(PASS_FILE)
 
 backup-rufus:
-	@restic -r $(HOST):$(REPO_DIR_RUFUS)  backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
+	@restic -r $(HOST):$(REPO_DIR_RUFUS) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 backup-rufus-wd:
 	@restic -r $(HOST):$(REPO_DIR_WD) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 backup-b2:
-	$(B2_VARS) @restic -r $(B2_URL) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
+	@$(B2_VARS) restic -r $(B2_URL) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
 
 init: init-rufus init-rufus-wd
 

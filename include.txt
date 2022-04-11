@@ -1,0 +1,2 @@
+/Users/drio
+/Users/drio/Library/Application Support/obs-studio

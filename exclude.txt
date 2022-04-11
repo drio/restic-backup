@@ -3,12 +3,15 @@
 *node_modules*
 /Users/drio/Applications 
 /Users/drio/Library
-/Users/drio/Documents    
+/Users/drio/Documents 
 /Users/drio/Movies 
-/Users/drio/ledfx-venv   
+/Users/drio/ledfx-venv 
 /Users/drio/tmp 
-/Users/drio/Downloads    
+/Users/drio/Downloads 
 /Users/drio/Library
+!/Users/drio/Library/Application Support/obs-studio
+!/Users/drio/Library/autojump/autojump.txt
+!/Users/drio/Library/Application Support/Spectacle
 /Users/drio/Music
 /Users/drio/.dropbox 
 /Users/drio/.local 
@@ -22,3 +25,5 @@
 /Users/drio/.vscode
 /Users/drio/.vscode-oss
 /Users/drio/dev/iot/reolink/reolink-fetch/output
+/Users/drio/dev/readfq
+/Users/drio/go
