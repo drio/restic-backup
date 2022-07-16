@@ -1,16 +1,4 @@
-TS_TEEWINOT=100.76.102.59
-PASS_FILE="--password-file=./pass.txt"
-REPO_DIR_WD=/mnt/external_drive_restic/restic-repo
-EXCLUDE=--exclude-file=exclude.txt
-INCLUDE=--files-from=include.txt
-HOST?=sftp:drio@$(TS_TEEWINOT)
-B2_BUCKET=drio-restic-backup
-B2_ID=003106374dd93dd0000000001
-B2_KEY=$(shell cat ./b2-key.txt)
-B2_VARS=B2_ACCOUNT_ID=$(B2_ID) B2_ACCOUNT_KEY=$(B2_KEY)
-B2_URL=b2:$(B2_BUCKET):b2_drio_repo
-# restic forget -r <repo_name> --keep-weekly 10
-# restic check -r <repo_name>
+include .env
 
 notification: backup
 	osascript -e 'display notification "Backup done" with title "Backup" sound name "Purr.aiff"'
