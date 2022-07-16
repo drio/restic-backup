@@ -56,3 +56,19 @@ init-teewinot-wd:
 
 init-b2:
 	$(B2_VARS) restic -r $(B2_URL) init $(PASS_FILE)
+
+restore-test-from-wd:
+	@echo "Restoring /Users/drio/.config in /tmp/foo ..."
+	@restic -r $(HOST):$(REPO_DIR_WD) \
+      restore latest \
+      --include /Users/drio/.config  \
+      --target=/tmp/foo \
+			$(PASS_FILE)
+
+restore-test-from-b2:
+	@echo "Restoring /Users/drio/.config in /tmp/foo ..."
+	@$(B2_VARS) restic -r $(B2_URL) \
+      restore latest \
+      --include /Users/drio/.config  \
+      --target=/tmp/foo \
+      "--password-file=./pass.txt"
