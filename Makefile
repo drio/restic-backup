@@ -24,6 +24,9 @@ verify-teewinot-wd: snapshots-teewinot-wd
 	diff -r . /tmp/restore-work/Users/drio/dev/restic-backup;\
 	rm -rf /tmp/restore-work;\
 
+snapshots-b2:
+	@$(B2_VARS) restic -r $(B2_URL) snapshots $(PASS_FILE)
+
 snapshots-teewinot-wd:
 	@restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots $(PASS_FILE)
 
