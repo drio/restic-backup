@@ -7,7 +7,6 @@
 /Users/drio/Movies 
 /Users/drio/ledfx-venv 
 /Users/drio/tmp 
-/Users/drio/Downloads 
 /Users/drio/Library
 !/Users/drio/Library/Application Support/obs-studio
 !/Users/drio/Library/autojump/autojump.txt
