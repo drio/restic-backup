@@ -4,15 +4,24 @@ set -eEuo pipefail
 
 # modified from: https://blog.cubieserver.de/2021/restic-backups-with-systemd-and-prometheus-exporter/#reporting-failures
 
-#METRICS_FILE='/var/lib/node-exporter/restic-backup.prom'
-# list of labels attached to all series, comma separated, without trailing comma
-METRIC_NAME_FIRST="restic_backup"
-COMMON_LABELS="type=\"drio\""
-LOGS=
+function usage() {
+  echo "Usage: metrics.sh <log file> <labels>"
+  exit 0
+}
+
+[ ".$1" == "." ] && usage
+[ ".$2" == "." ] && usage
+labels=$2
 
 cut=cut
 which gcut &> /dev/null
 [ $? -eq 0 ] && cut=gcut
+
+#METRICS_FILE='/var/lib/node-exporter/restic-backup.prom'
+# list of labels attached to all series, comma separated, without trailing comma
+METRIC_NAME_FIRST="restic_backup"
+COMMON_LABELS="$labels"
+LOGS=
 
 function error_finalizer() {
     write_metrics "restic_backup_failure{${COMMON_LABELS},timestamp=\"$(date '+%s')\"} 1"

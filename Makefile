@@ -10,10 +10,10 @@ snapshots: snapshots-teewinot-wd
 backup: backup-teewinot-wd backup-b2
 
 check-teewinot-wd:
-	@restic --verbose -r $(HOST):$(REPO_DIR_WD) check $(PASS_FILE)
+	@restic -r $(HOST):$(REPO_DIR_WD) check $(PASS_FILE)
 
 verify-teewinot-wd: snapshots-teewinot-wd
-	THE_ID=$$(restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots "--password-file=./pass.txt" | tail -3 | head -1 | awk '{print $$1}');\
+	THE_ID=$$(restic -r $(HOST):$(REPO_DIR_WD) snapshots "--password-file=./pass.txt" | tail -3 | head -1 | awk '{print $$1}');\
 	echo $$THE_ID;\
 	restic \
 		-r $(HOST):$(REPO_DIR_WD) \
@@ -30,11 +30,8 @@ snapshots-b2:
 snapshots-teewinot-wd:
 	@restic --verbose -r $(HOST):$(REPO_DIR_WD) snapshots $(PASS_FILE)
 
-backup-teewinot-wd:
-	@restic -r $(HOST):$(REPO_DIR_WD) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
-
-backup-b2:
-	@$(B2_VARS) restic -r $(B2_URL) backup $(INCLUDE) $(PASS_FILE) $(EXCLUDE) || true
+backup-%:
+	@./run_backup.sh $*
 
 init: init-teewinot init-teewinot-wd
 
