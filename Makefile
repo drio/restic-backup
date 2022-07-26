@@ -49,11 +49,11 @@ init-b2:
 	$(B2_VARS) restic -r $(B2_URL) init $(PASS_FILE)
 
 restore-test-from-wd:
-	@echo "Restoring /Users/drio/.config in /tmp/foo ..."
+	@echo "Restoring ..."
 	@restic -r $(HOST):$(REPO_DIR_WD) \
       restore latest \
-      --include /Users/drio/.config  \
-      --target=/tmp/foo \
+      --include="/Users/drio/Downloads/Reolink Client/Download/Basement/0120211217094932.mp4"  \
+      --target=/tmp/foo.mp4 \
 			$(PASS_FILE)
 
 restore-test-from-b2:
