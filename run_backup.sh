@@ -10,11 +10,14 @@ if [[ $k != "b2" && $k != "teewinot-wd" ]];then
 fi
 
 if [ $k == "b2" ];then
-  export $B2_VARS 
+  export $B2_VARS
   restic -r $B2_URL backup $INCLUDE $PASS_FILE $EXCLUDE > ${k}.log
-else 
+else
   restic -r $HOST:$REPO_DIR_WD backup $INCLUDE $PASS_FILE $EXCLUDE > ${k}.log
 fi
 ./metrics.sh ./${k}.log type="\"drio-${k}\"" > metrics.$k
+echo "Metrics sent for $k:"
+cat metrics.$k
+ssh $NODE_EXPORTER_SSH "rm -f $NODE_EXPORTER_DIR/metrics.drio.${k}.prom"
 scp ./metrics.$k $NODE_EXPORTER_SSH:$NODE_EXPORTER_DIR/metrics.drio.${k}.prom
 rm -f metrics.$k ${k}.log
