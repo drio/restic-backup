@@ -1,3 +1,5 @@
 pass.txt
 b2-key.txt
 .env
+pass*.*.txt
+*.log

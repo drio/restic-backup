@@ -7,7 +7,7 @@ check: check-teewinot-wd
 
 snapshots: snapshots-teewinot-wd
 
-backup: backup-teewinot-wd backup-b2
+backup: backup-ds720 backup-wd backup-b2
 
 check-teewinot-wd:
 	@restic -r $(HOST):$(REPO_DIR_WD) check $(PASS_FILE)
@@ -49,8 +49,8 @@ restore-test-from-wd:
 	@echo "Restoring ..."
 	@restic -r $(HOST):$(REPO_DIR_WD) \
       restore latest \
-      --include="/Users/drio/Downloads/Reolink Client/Download/Basement/0120211217094932.mp4"  \
-      --target=/tmp/foo.mp4 \
+      --include="/Users/drio/dev/github.com/TuftsUniversity/google-camps-py-server" \
+      --target=/tmp/google-camps-py-server \
 			$(PASS_FILE)
 
 restore-test-from-b2:
